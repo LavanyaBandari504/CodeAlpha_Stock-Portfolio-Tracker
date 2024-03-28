@@ -36,40 +36,35 @@ class StockPortfolioTracker:
         return data
 
     def display_portfolio(self):
-        portfolio_str = "\nStock Portfolio:\n"
-        portfolio_str += "Symbol\tQuantity\tAverage Price\n"
+        print("\nStock Portfolio:")
+        print("Symbol\tQuantity\tAverage Price")
         for symbol, stock_info in self.portfolio.items():
-            portfolio_str += f"{symbol}\t{stock_info['quantity']}\t\t${stock_info['avg_price']:.2f}\n"
-        return portfolio_str
+            print(f"{symbol}\t{stock_info['quantity']}\t\t${stock_info['avg_price']:.2f}")
 
-api_key = 'TO6N2XDUU8Y37G12'
+# Replace 'YOUR_ALPHA_VANTAGE_API_KEY' with your actual API key
+api_key = 'TO6N2XDUU8Y37G11'
 tracker = StockPortfolioTracker(api_key)
 
-while True:
-    print("\nOptions:")
-    print("1. Add stock")
-    print("2. Remove stock")
-    print("3. Display portfolio")
-    print("4. Update portfolio")
-    print("5. Exit")
+# Adding stocks to the portfolio
+tracker.add_stock('AAPL', 5)
+tracker.add_stock('GOOGL', 2)
 
-    choice = input("Enter your choice (1-5): ")
+# Displaying the initial portfolio
+tracker.display_portfolio()
 
-    if choice == '1':
-        symbol = input("Enter stock symbol: ")
-        quantity = int(input("Enter quantity: "))
-        tracker.add_stock(symbol, quantity)
-    elif choice == '2':
-        symbol = input("Enter stock symbol to remove: ")
-        quantity = int(input("Enter quantity to remove: "))
-        tracker.remove_stock(symbol, quantity)
-    elif choice == '3':
-        print(tracker.display_portfolio())
-    elif choice == '4':
-        portfolio_value = tracker.update_portfolio()
-        print(f"\nTotal Portfolio Value: ${portfolio_value:.2f}")
-    elif choice == '5':
-        print("Exiting...")
-        break
-    else:
-        print("Invalid choice. Please enter a number between 1 and 5.")
+# Updating portfolio and displaying total portfolio value
+portfolio_value = tracker.update_portfolio()
+print(f"\nTotal Portfolio Value: ${portfolio_value:.2f}")
+
+# Removing stocks from the portfolio
+tracker.remove_stock('AAPL', 3)
+tracker.remove_stock('GOOGL', 2)
+
+# Displaying the updated portfolio
+tracker.display_portfolio()
+
+# Updating portfolio and displaying total portfolio value after removal
+portfolio_value = tracker.update_portfolio()
+print(f"\nUpdated Total Portfolio Value: ${portfolio_value:.2f}")
+ 
+ 
